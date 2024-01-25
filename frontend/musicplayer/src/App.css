@@ -34,7 +34,7 @@ input[type="range"] {
 }
 
 button {
-  background-color: #4caf50;
+  background-color: #777;
   color: #fff;
   border: none;
   padding: 40px;
@@ -44,8 +44,15 @@ button {
   margin-top: 15px;
 }
 
+button::before {
+  content: " "; /* Unicode character for play symbol */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 button:hover {
-  background-color: #45a049;
+  background-color: #777;
 }
 
 button {

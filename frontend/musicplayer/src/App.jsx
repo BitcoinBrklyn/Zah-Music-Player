@@ -1,11 +1,14 @@
 // YourComponent.jsx
 import React, { useState, useRef, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import "./App.css";
+import { Button } from "react-bootstrap";
 
-function AudioPlayer({ audioSrc }) {
+function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [selectedFile, setSelectedFile] = useState(null);
   const audioRef = useRef(null);
 
   const handlePlay = () => {
@@ -36,6 +39,16 @@ function AudioPlayer({ audioSrc }) {
     setCurrentTime(e.target.value);
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const fileUrl = URL.createObjectURL(file);
+    audioRef.current.src = fileUrl;
+    setCurrentTime(0);
+    setDuration(0);
+    setIsPlaying(false);
+    setSelectedFile(file);
+  };
+
   function formatDuration(durationSeconds) {
     const minutes = Math.floor(durationSeconds / 60);
     const seconds = Math.floor(durationSeconds % 60);
@@ -44,11 +57,20 @@ function AudioPlayer({ audioSrc }) {
   }
 
   useEffect(() => {
-    audioRef.current.addEventListener("timeupdate", handleTimeUpdate);
-    return () => {
-      audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
+    const audioElement = audioRef.current;
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(audioElement.currentTime);
+      setDuration(audioElement.duration);
     };
-  }, []);
+
+    audioElement.addEventListener("timeupdate", handleTimeUpdate);
+
+    return () => {
+      // Cleanup: remove the event listener when the component is unmounted
+      audioElement.removeEventListener("timeupdate", handleTimeUpdate);
+    };
+  }, []); // Empty dependency array to run this effect only once on mount
 
   return (
     <div className="player-card">
@@ -59,7 +81,13 @@ function AudioPlayer({ audioSrc }) {
       <input type="range" min="0" max={duration} value={currentTime} onChange={handleSeek} />
 
       {/* Audio element */}
-      <audio ref={audioRef} src={audioSrc} />
+      <audio ref={audioRef} />
+
+      {/* Display file name if a file is selected */}
+      {selectedFile && <p>{selectedFile.name}</p>}
+
+      {/* File input for selecting local music */}
+      {!selectedFile && <input type="file" accept="audio/*" onChange={handleFileChange} />}
 
       {/* Track duration */}
       <div className="track-duration">
@@ -68,25 +96,12 @@ function AudioPlayer({ audioSrc }) {
       </div>
 
       {/* Play/Pause button */}
-      <button onClick={handlePlayPause}>
-        {isPlaying ? (
-          <i className="bi bi-pause-circle-fill"></i>
-        ) : (
-          <i className="bi bi-play-circle-fill"></i>
-        )}
-      </button>
+      <Button variant="success" size="lg" onClick={handlePlayPause}>
+        {isPlaying ? <i className="bi bi-pause"></i> : <i className="bi bi-play-fill"></i>}
+        <span className="visually-hidden">Play</span> {/* Accessible text for screen readers */}
+      </Button>
     </div>
   );
 }
 
-function App() {
-  const AUDIO_FILE = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
-
-  return (
-    <div className="container">
-      <AudioPlayer audioSrc={AUDIO_FILE} />
-    </div>
-  );
-}
-
-export default App;
+export default AudioPlayer;
