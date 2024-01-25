@@ -1,0 +1,67 @@
+/* YourComponent.css */
+.player-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px; /* Set your desired width */
+  height: 400px; /* Set your desired height */
+  margin: auto; /* Center horizontally */
+  padding: 20px;
+  background-color: antiquewhite;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+}
+
+img {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.track-duration {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: #777;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  margin-top: 15px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #333; /* Change the color as desired */
+  margin: 0 10px;
+}
+
+button:hover {
+  color: #ff6600; /* Change the hover color as desired */
+}
+
+input {
+  width: 100%;
+  margin-top: 10px;
+}
