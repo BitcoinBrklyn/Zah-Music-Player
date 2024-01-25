@@ -1,6 +1,8 @@
 // YourComponent.jsx
 import React, { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import { PlayFill, PauseFill, Arrow90degLeft, Arrow90degRight } from "react-bootstrap-icons";
+
 import "./App.css";
 import { Button } from "react-bootstrap";
 
@@ -27,6 +29,14 @@ function AudioPlayer() {
     } else {
       handlePlay();
     }
+  };
+
+  const handleFastForward = () => {
+    audioRef.current.currentTime += 10; // Forward by 10 seconds (adjust as needed)
+  };
+
+  const handleRewind = () => {
+    audioRef.current.currentTime -= 10; // Rewind by 10 seconds (adjust as needed)
   };
 
   const handleTimeUpdate = () => {
@@ -95,11 +105,20 @@ function AudioPlayer() {
         <p>{formatDuration(duration)}</p>
       </div>
 
-      {/* Play/Pause button */}
-      <Button variant="success" size="lg" onClick={handlePlayPause}>
-        {isPlaying ? <i className="bi bi-pause"></i> : <i className="bi bi-play-fill"></i>}
-        <span className="visually-hidden">Play</span> {/* Accessible text for screen readers */}
-      </Button>
+      {/* Playback control buttons with icons */}
+      <div className="control-buttons">
+        {/* // Replace these lines inside the control-buttons div */}
+        <Button variant="success" size="lg" onClick={handleRewind}>
+          <Arrow90degLeft />
+        </Button>
+        <Button variant="success" size="lg" onClick={handlePlayPause}>
+          {isPlaying ? <PauseFill /> : <PlayFill />}
+          <span className="visually-hidden">Play/Pause</span>
+        </Button>
+        <Button variant="success" size="lg" onClick={handleFastForward}>
+          <Arrow90degRight />
+        </Button>
+      </div>
     </div>
   );
 }
