@@ -1,7 +1,7 @@
 // YourComponent.jsx
 import React, { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
-import { PlayFill, PauseFill, Arrow90degLeft, Arrow90degRight } from "react-bootstrap-icons";
+import { Play, Pause, Rewind, FastForward } from "react-bootstrap-icons";
 
 import "./App.css";
 import { Button } from "react-bootstrap";
@@ -109,14 +109,14 @@ function AudioPlayer() {
       <div className="control-buttons">
         {/* // Replace these lines inside the control-buttons div */}
         <Button variant="success" size="lg" onClick={handleRewind}>
-          <Arrow90degLeft />
+          <Rewind />
         </Button>
         <Button variant="success" size="lg" onClick={handlePlayPause}>
-          {isPlaying ? <PauseFill /> : <PlayFill />}
+          {isPlaying ? <Pause /> : <Play />}
           <span className="visually-hidden">Play/Pause</span>
         </Button>
         <Button variant="success" size="lg" onClick={handleFastForward}>
-          <Arrow90degRight />
+          <FastForward />
         </Button>
       </div>
     </div>
