@@ -85,6 +85,11 @@ function AudioPlayer() {
   return (
     <div className="player-card">
       {/* Your cover image */}
+      {/* <img
+        src="C:\Users\OfficialSoles718\Desktop\Zah-Music-Player\frontend\musicplayer\images\coverimage.jpg"
+        alt="Cover Image"
+      /> */}
+
       <img src="https://picsum.photos/300/200" alt="Cover Image" />
 
       {/* Seek bar */}
