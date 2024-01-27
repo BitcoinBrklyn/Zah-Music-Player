@@ -1,4 +1,7 @@
 /* YourComponent.css */
+body {
+  background-color: burlywood;
+}
 .player-card {
   display: flex;
   flex-direction: column;
